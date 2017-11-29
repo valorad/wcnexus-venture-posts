@@ -2,6 +2,8 @@
 <html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en-us{{ end }}">
 {{ partial "head.html" . }}
 <body>
-  index works
+  {{ range .Site.RegularPages }}
+    <a href="{{ .Permalink }}">{{ .Title }}</a><br>
+  {{ end }}
 </body>
 </html>
