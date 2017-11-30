@@ -1,0 +1,61 @@
+body {
+  margin: 0px;
+  padding: 0px;
+
+  font-family: Roboto, noto-sans-cjk, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.flexSpacer {
+  flex-grow: 1;
+}
+
+.matButton {
+  color: currentColor;
+  box-sizing: border-box;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: baseline;
+  text-align: center;
+  margin: 0;
+  min-width: 88px;
+  line-height: 36px;
+  padding: 0 16px;
+  border-radius: 2px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.matButton:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Header */
+nav.navTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.mat-green .primary {
+  background: #4caf50;
+  color: hsla(0,0%,100%,.87);
+}

@@ -1,6 +1,12 @@
-{{ partial "header.html" . }}
-
-<h1> {{ .Title }} </h1>
-<p> {{ .Content }} </p>
-
-{{ partial "footer.html" . }}
+<!DOCTYPE html>
+<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en-us{{ end }}">
+{{ partial "head.html" . }}
+<body class="mat-green">
+    {{ partial "header.html" . }}
+    
+    <h1> {{ .Title }} </h1>
+    <p> {{ .Content }} </p>
+    
+    {{ partial "footer.html" . }}
+</body>
+</html>  
