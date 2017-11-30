@@ -11,6 +11,14 @@ body {
   flex-grow: 1;
 }
 
+.mat-elevation-z6 {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.fluid {
+  max-width: 100%;
+}
+
 .matButton {
   color: currentColor;
   box-sizing: border-box;
@@ -53,6 +61,17 @@ nav.navTop {
   -ms-flex-align: center;
   align-items: center;
   padding: 8px 16px;
+}
+
+nav.navTop a.holder {
+  display: flex;
+}
+
+nav.navTop .logo {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5em;
 }
 
 .mat-green .primary {
