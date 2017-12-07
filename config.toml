@@ -1,4 +1,7 @@
 baseURL = "http://www.wcnexus.com/"
 languageCode = "en-us"
 title = "wcnexus-venture"
-theme = "wcnexus-hugo"
+theme = "wcnexus-venture"
+
+pygmentsCodeFences = true
+pygmentsUseClasses = true
