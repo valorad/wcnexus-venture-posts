@@ -2,6 +2,8 @@
 title: "FirstDay"
 date: 2017-12-05T16:40:29+08:00
 draft: false
+featured_image : ""
+tags: ["insane_life"]
 ---
 
 ## Sorting

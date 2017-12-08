@@ -1,7 +1,28 @@
 baseURL = "http://www.wcnexus.com/"
 languageCode = "en-us"
-title = "wcnexus-venture"
+title = "wcnexus"
 theme = "wcnexus-venture"
 
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+
+[params]
+  favicon = ""
+  description = "Theme for wcnexus.com venture page"
+  img0 = "/images/defaultPost.png" # the default fetured image for posts
+
+  [params.user]
+  name = "Valorad"
+  fullName = "Valorad the Oneiroseeker"
+  avatar = "/images/fallout-VaultBoy-2.jpg" # the name of the file being used as the avatar, placed in "static" folder.
+  intro = "This dude was too confused to make a bio."
+
+  [params.social]
+  weibo = ""
+  zhihu = ""
+  twitter = "https://twitter.com/wcxaaa"
+  github = ""
+  linkedin = ""
+  facebook = ""
+  instagram = ""
+  youtube = ""
