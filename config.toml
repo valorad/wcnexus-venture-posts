@@ -7,13 +7,22 @@ pygmentsCodeFences = true
 pygmentsUseClasses = true
 
 [params]
-  favicon = ""
-  description = "Theme for wcnexus.com venture page"
-  img0 = "/images/defaultPost.png" # the default fetured image for posts
+favicon = ""
+description = "Theme for wcnexus.com venture page"
+img0 = "/images/defaultPost.png" # the default fetured image for posts
+
+  [[params.navs]]
+  title = "Index"
+  link = "http://www.wcnexus.com/#index"
+
+  [[params.navs]]
+  title = "Venture"
+  link = "/"
 
   [params.user]
   name = "Valorad"
   fullName = "Valorad the Oneiroseeker"
+  cover = "/images/landscape.jpg"
   avatar = "/images/fallout-VaultBoy-2.jpg" # the name of the file being used as the avatar, placed in "static" folder.
   intro = "This dude was too confused to make a bio."
 
