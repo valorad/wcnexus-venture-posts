@@ -7,9 +7,9 @@ pygmentsCodeFences = true
 pygmentsUseClasses = true
 
 [params]
-favicon = ""
 description = "Theme for wcnexus.com venture page"
 img0 = "/images/defaultPost.png" # the default fetured image for posts
+weiboAPI = "2886666369"
 
   [[params.navs]]
   title = "Index"
@@ -27,10 +27,10 @@ img0 = "/images/defaultPost.png" # the default fetured image for posts
   intro = "This dude was too confused to make a bio."
 
   [params.social]
-  weibo = ""
-  zhihu = ""
+  weibo = "https://weibo.com/wcxaaa"
+  zhihu = "https://www.zhihu.com/people/ying-pan-mao"
   twitter = "https://twitter.com/wcxaaa"
-  github = ""
+  github = "https://github.com/valorad"
   linkedin = ""
   facebook = ""
   instagram = ""

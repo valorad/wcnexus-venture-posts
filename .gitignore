@@ -16,3 +16,4 @@
 # Site specific
 /.vscode/*
 /themes/*
+/public/*
