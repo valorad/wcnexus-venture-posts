@@ -1,6 +1,6 @@
 # example for building and running a countainer:
-# docker build -t wcnventure .
-# docker run --name wcnventureC1 -v /workspace/www:/dist wcnventure
+# docker build -t wcnexus-venture .
+# docker run --name wcnexus-venture-c1 -v /workspace/www/venture:/dist wcnexus-venture
 FROM alpine:latest
 LABEL maintainer="Valroad <valorad@outlook.com>"
 

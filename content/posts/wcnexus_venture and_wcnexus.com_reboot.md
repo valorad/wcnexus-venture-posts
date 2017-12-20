@@ -2,7 +2,7 @@
 title: "wcnexus Venture and wcnexus.com reboot"
 date: 2017-12-09T11:00:00+08:00
 draft: false
-featured_image : "/images/wcnexus_venture and_wcnexus.com_reboot/wcnexus.png"
+featured_image : "images/wcnexus_venture and_wcnexus.com_reboot/wcnexus.png"
 tags: ["冒泡"]
 isCJKLanguage: true
 ---
