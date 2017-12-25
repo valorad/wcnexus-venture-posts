@@ -21,7 +21,5 @@ chmod -R 755 /dist
 # }
 
 # su-exec $username fetchTheme()
-
+# /bin/sh
 su-exec $username "$@"
-
-
