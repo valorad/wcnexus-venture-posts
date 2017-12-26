@@ -18,6 +18,7 @@ RUN git clone https://github.com/valorad/wcnexus-venture.git /src \
  && wget -O /tmp/theme.zip https://github.com/$(wget https://github.com/valorad/wcnexus-venture-theme/releases/latest -O - | egrep '/.*releases/.*/.*zip' -o) \
  && mkdir -p /src/themes/wcnexus-venture \
  && unzip -d /src/themes/wcnexus-venture/ /tmp/theme.zip \
+ && rm -rf /tmp/* \
  && chmod 777 /src/index.sh
 
 VOLUME [ "/src", "/dist" ]
