@@ -2,7 +2,6 @@
 # docker build -t wcnexus-venture .
 # docker run --name wcnexus-venture-c1 \
 # -e EXEC_USER=$USER -e EXEC_USER_ID=$UID \
-# -v /path/to/this/repo/wcnexus-venture:/src \
 # -v /path/to/local/output:/dist \
 # wcnexus-venture 
 
