@@ -26,4 +26,4 @@ VOLUME [ "/src", "/dist" ]
 WORKDIR /src
 
 ENTRYPOINT ["/src/index.sh"]
-CMD git pull && git checkout . && git pull && hugo -s /src -d /dist
+CMD git checkout . && git pull && hugo -s /src -d /dist
