@@ -35,5 +35,5 @@ Webhook是啥？[Webhook][1]就是网站开发的时候，为了改版或增强�
 
 这样我就方便多了，不用自己去亲自做那些操作，就有更多事件给你们发技术(shui)贴了:)
 
-[1][https://en.wikipedia.org/wiki/Webhook]
-[2][https://developer.github.com/v3/activity/events/types/#pushevent]
+[1]:https://en.wikipedia.org/wiki/Webhook
+[2]:https://developer.github.com/v3/activity/events/types/#pushevent
