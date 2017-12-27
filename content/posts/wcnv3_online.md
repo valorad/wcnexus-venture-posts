@@ -33,7 +33,7 @@ Webhook是啥？[Webhook][1]就是网站开发的时候，为了改版或增强�
 - 再水一贴，保存，`git commit`，`git push`，Github触发push事件
 - 服务器监听到Github的push事件，自动执行`git pull`和`hugo`一下
 
-这样我就方便多了，不用自己去亲自做那些操作，就有更多事件给你们发技术(shui)贴了:)
+这样我就方便多了，不用自己去亲自做那些操作，就有更多时间给你们发技术(shui)贴了:)
 
 [1]:https://en.wikipedia.org/wiki/Webhook
 [2]:https://developer.github.com/v3/activity/events/types/#pushevent
