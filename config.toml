@@ -1,10 +1,16 @@
 baseURL = "https://www.wcnexus.com/venture/"
-languageCode = "en-us"
-title = "wcnexus"
+# languageCode = "en-us"
+# title = "wcnexus"
 theme = "wcnexus-venture"
 
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+
+[Languages]
+  [Languages.en]
+  title = "wcnexus Venture"
+  [Languages.zh]
+  title = "wcnexus 冒险"
 
 [params]
 description = "Theme for wcnexus.com venture page"
@@ -12,13 +18,18 @@ img0 = "images/defaultPost.png" # the default fetured image for posts
 weiboAPI = "2886666369"
 
   [[params.navs]]
-  title = "Index"
   link = "/#index"
+    [params.navs.title]
+      en = "Index"
+      zh = "首页"
+  
 
   [[params.navs]]
-  title = "Venture"
   link = "/venture"
-
+    [params.navs.title]
+    en = "Venture"
+    zh = "冒险"
+  
   [params.user]
   name = "Valorad"
   fullName = "Valorad the Oneiroseeker"
