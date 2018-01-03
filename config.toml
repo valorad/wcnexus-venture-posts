@@ -1,36 +1,47 @@
-baseURL = "http://www.wcnexus.com/"
-languageCode = "en-us"
-title = "wcnexus"
+baseURL = "https://www.wcnexus.com/venture/"
+# languageCode = "en-us"
+# title = "wcnexus"
 theme = "wcnexus-venture"
 
 pygmentsCodeFences = true
 pygmentsUseClasses = true
 
+[Languages]
+  [Languages.en]
+  title = "wcnexus Venture"
+  [Languages.zh]
+  title = "wcnexus 冒险"
+
 [params]
-favicon = ""
 description = "Theme for wcnexus.com venture page"
-img0 = "/images/defaultPost.png" # the default fetured image for posts
+img0 = "images/defaultPost.png" # the default fetured image for posts
+weiboAPI = "2886666369"
 
   [[params.navs]]
-  title = "Index"
-  link = "http://www.wcnexus.com/#index"
+  link = "/#index"
+    [params.navs.title]
+      en = "Index"
+      zh = "首页"
+  
 
   [[params.navs]]
-  title = "Venture"
-  link = "/"
-
+  link = "/venture"
+    [params.navs.title]
+    en = "Venture"
+    zh = "冒险"
+  
   [params.user]
   name = "Valorad"
   fullName = "Valorad the Oneiroseeker"
-  cover = "/images/landscape.jpg"
-  avatar = "/images/fallout-VaultBoy-2.jpg" # the name of the file being used as the avatar, placed in "static" folder.
+  cover = "images/landscape.jpg"
+  avatar = "images/fallout-VaultBoy-2.jpg" # the name of the file being used as the avatar, placed in "static" folder.
   intro = "This dude was too confused to make a bio."
 
   [params.social]
-  weibo = ""
-  zhihu = ""
+  weibo = "https://weibo.com/wcxaaa"
+  zhihu = "https://www.zhihu.com/people/ying-pan-mao"
   twitter = "https://twitter.com/wcxaaa"
-  github = ""
+  github = "https://github.com/valorad"
   linkedin = ""
   facebook = ""
   instagram = ""
