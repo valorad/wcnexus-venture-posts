@@ -12,6 +12,8 @@ isCJKLanguage: true
 # 效果图
 gif
 
+你可以查看[Github代码仓库](https://github.com/wcxaaa/vue-anim-in-view)看到这个效果的最终实现。
+
 # 准备工作
 
 本文采用了[vue-class-component](https://github.com/vuejs/vue-class-component) + [typescript](http://www.typescriptlang.org/)。当然你也可以用最基本的vue实现。
@@ -268,7 +270,7 @@ switchGroupAnimState = (mapArray: any[], stateKey: string, switchTo: boolean, ti
 
 现在一切都似乎展现得flawlessly，但是，如果你打开控制台，你就会惊奇的发现：
 
-[图]
+![throttle-before](/images/vue-anim-in-view/throttle-before.png)
 
 我们每轻轻滚动一次鼠标，onscroll事件就要触发个10多20次，紧接着我们就要在那么十几个px的地方判断10多20次，这是有损性能且毫无意义的，所以我们要做好事件触发的节流工作。
 
@@ -318,7 +320,7 @@ destroyed() {
 
 现在回到浏览器里再滚一下，我们发现情况已经好多了。
 
-[图]
+![throttle-after](/images/vue-anim-in-view/throttle-after.png)
 
 `throttleTime`的取值不能太小，也不能设的太大：太小了性能有损耗，太大了有时候视野会漏检，导致动画不播放。所以究竟多少看你感觉吧😄。
 
