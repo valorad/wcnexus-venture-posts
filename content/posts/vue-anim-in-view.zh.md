@@ -2,6 +2,7 @@
 title: "vue 实现滚动到元素位置才播放动画"
 date: 2018-03-27T10:36:01+08:00
 draft: false
+featured_image : "images/vue-anim-in-view/logo.png"
 tags: ["前端", "vue", "动画", "in-view"]
 isCJKLanguage: true
 ---
@@ -13,10 +14,10 @@ gif
 
 # 准备工作
 
-这个例子采用了[vue-class-component]() + [typescript]()。当然你也可以用最基本的vue实现。
+本文采用了[vue-class-component](https://github.com/vuejs/vue-class-component) + [typescript](http://www.typescriptlang.org/)。当然你也可以用最基本的vue实现。
 
-判断元素是否进入视野，我们主要将用到[in-view]()。
-节流工作可以选择安装[rxjs]()
+判断元素是否进入视野，我们主要将用到[in-view](https://github.com/camwiegert/in-view)。
+节流工作可以选择安装[rxjs](http://reactivex.io/rxjs/)
 
 安装node包：
 
@@ -121,9 +122,13 @@ aniMap = {
 
 接下来是js部分。我们要实现的效果是
 
+
 > 当某个元素（比如div）进入视野时，它动起来（比如淡入），而滑过这个元素时，就恢复原先的状态。
 
-首先，怎么进入视野？这里我的想法是监视浏览器的滚动条，当滚动条滚动时，判断一下元素有没有进入视野。当然要指出哪些元素需要判断。
+
+首先，怎么进入视野？
+
+这里我的想法是监视浏览器的滚动条，当滚动条滚动时，判断一下元素有没有进入视野。当然要指出哪些元素需要判断。
 
 ``` typescript
 // App.vue
@@ -323,26 +328,29 @@ destroyed() {
 我们看到了vue 如何实现滚动到元素位置才播放出现动画的效果。这种效果实际上分成2种情况："单个容器底下的所有元素" 和 "动画组里的所有元素"，而这两种情况都是监听浏览器的scroll事件，辅以`in-view`进行判断，通过扳动动画状态表里的开关进行动画来实现的。最后，针对scroll事件的节流需求，本文给出了利用`rxjs`来管理的建议。
 
 # 背后原理
-现代浏览器都支持`Element.getBoundingClientRect()`[方法]()，用以返回元素的尺寸，以及距视野边界的相对位置。
+现代浏览器都支持`Element.getBoundingClientRect()`[方法](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)，用以返回元素的尺寸，以及距视野边界的相对位置。
 
 这个方法返回的rect对象包括top、bottom、right等属性。
 
 B >= H && T >= 0 -------------------完全显示
+
 0 < B < H || 0 < T < -H ------------没显示完
+
 B <= 0 && T <= -H  -----------------完全没显示
+
 
 （
 其中：
 B：rect.bottom，
+
 H：window.innerHeight或者document.documentElement.clientHeight，
+
 T：rect.top
+
 ）
 
-[wcnexus.com](http://www.wcnexus.com) v1曾经使用类似方法判断，看到抓根宝时隐藏导航栏，看不见抓根宝时显示导航栏。
+[wcnexus.com](http://www.wcnexus.com) v1曾经使用[类似方法](https://github.com/valorad/wcnexus.com/blob/bd4b169bd1c4935ec34a1c30b47ff6dd98bf3416/home/static/Globalsite/js/wcNexusUtil.js#L6)判断，看到抓根宝时隐藏导航栏，看不见抓根宝时显示导航栏。
 
-https://github.com/valorad/wcnexus.com/blob/bd4b169bd1c4935ec34a1c30b47ff6dd98bf3416/home/static/Globalsite/js/wcNexusUtil.js#L6
-
-https://github.com/valorad/wcnexus.com/blob/bd4b169bd1c4935ec34a1c30b47ff6dd98bf3416/home/templates/home/index.html#L149
 
 stackOverflow 上也有网友介绍了[如何使用getBoundingClientRect()](https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport)
 
