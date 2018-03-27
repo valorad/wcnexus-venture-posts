@@ -5,6 +5,7 @@ theme = "wcnexus-venture"
 
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+canonifyURLs = true
 
 [Languages]
   [Languages.en]
