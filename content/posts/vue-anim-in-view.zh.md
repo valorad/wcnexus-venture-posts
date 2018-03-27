@@ -10,7 +10,7 @@ isCJKLanguage: true
 我想实现的页面效果是，随着鼠标滑轮滚动，当某个元素（比如div）进入视野时，它动起来（比如淡入），而滑过这个元素时，就恢复原先的状态。我们下一次再看到它时，它再播放动画动起来。
 
 # 效果图
-gif
+![Imgur](https://i.imgur.com/17aMf4j.gif)
 
 你可以查看[Github代码仓库](https://github.com/wcxaaa/vue-anim-in-view)看到这个效果的最终实现。
 
@@ -120,9 +120,9 @@ aniMap = {
 
 然后为容器添加样式，一定记得要给容器里的**每一个**元素加`transition`样式。
 
-这里省略，你可以去看看这个例子的repo。
+这里省略，你可以去看看[本文的repo](https://github.com/wcxaaa/vue-anim-in-view)。
 
-接下来是js部分。我们要实现的效果是
+接下来是js部分。我们要实现的效果是:
 
 
 > 当某个元素（比如div）进入视野时，它动起来（比如淡入），而滑过这个元素时，就恢复原先的状态。
@@ -155,6 +155,7 @@ destroyed() {
 那么怎么判断元素进入了视野呢？这里我用到的是我们准备好的`in-view`。我们继续完成`animateWhenSeen`方法：
 
 ``` typescript
+// App.vue
 import inView from 'in-view';
 
 animateWhenSeen(ele: Element){
@@ -174,6 +175,7 @@ animateWhenSeen(ele: Element){
 当元素进入视野时，我们要让它出现。`switchElementAnimState`方法传入aniMap映射（就是开关集中object）、元素名称（ref值）以及开还是关。注意由于是控制对应元素的class，这里是反着的，“关”是“不隐藏”，“开”才是“隐藏”。
 
 ``` typescript
+// App.vue
 switchElementAnimState = (mapObject: any, eleName: string, switchTo: boolean) => {
   // 遍历所有key把对应value全部设置成switchTo的值
   for (let key in mapObject[eleName]) {
@@ -184,7 +186,7 @@ switchElementAnimState = (mapObject: any, eleName: string, switchTo: boolean) =>
 
 完成了。这时候你打开浏览器就可以看到这种效果。
 
-[gif图]
+![eg1](https://i.imgur.com/5InGtRg.gif)
 
 ## 动画组里的所有元素
 
@@ -263,8 +265,7 @@ switchGroupAnimState = (mapArray: any[], stateKey: string, switchTo: boolean, ti
 
 大功告成，打开浏览器我们就可以看到相应的效果。
 
-[gif]
-
+![eg2](https://i.imgur.com/BPtffsP.gif)
 
 # 触发节流
 
@@ -276,7 +277,7 @@ switchGroupAnimState = (mapArray: any[], stateKey: string, switchTo: boolean, ti
 
 你可以写一个简单的函数，用setTimeout来实现节流，不过那是前端面试题，你可以自己去瞅瞅，我在实际的项目中更多的是用**rxjs**来做节流工作，因为数据流更好管理。
 
-对于我这种从隔壁[Angular](https://angular.io/) 过来的前端喵，rxjs是很熟悉的。如果你不熟悉，你可以多 [了解了解rxjs](http://reactivex.io/rxjs/)
+对于我这种从隔壁 [Angular](https://angular.io/) 过来的前端喵，rxjs是很熟悉的。如果你不熟悉，你可以多 [了解了解rxjs](http://reactivex.io/rxjs/)
 
 我们这里用rxjs代替addEventListener来管理这个onscroll事件。
 
@@ -359,7 +360,8 @@ stackOverflow 上也有网友介绍了[如何使用getBoundingClientRect()](http
 # 其他
 其实GitHub上有程序猿已经封装了vue版的in-view，不过因为它有bug，而且集成了包括animate.css在内的很多第3方库，有点小臃肿，我在项目中没有采用。
 
-问：为何动画组不能直接用数组存放开关？像acsec: [true, true, true, ...]
+问：为何动画组不能直接用数组存放开关？像`acsec: [true, true, true, ...]`
+
 答：因为vue无法检测数组成员值的变化，会导致模板不能及时更新，你会看不到动画效果。
 
 # 参考
