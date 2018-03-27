@@ -276,7 +276,7 @@ switchGroupAnimState = (mapArray: any[], stateKey: string, switchTo: boolean, ti
 
 你可以写一个简单的函数，用setTimeout来实现节流，不过那是前端面试题，你可以自己去瞅瞅，我在实际的项目中更多的是用**rxjs**来做节流工作，因为数据流更好管理。
 
-对于我这种从隔壁[Angular]() 过来的前端喵，rxjs是很熟悉的。如果你不熟悉，你可以多 [了解了解rxjs]()
+对于我这种从隔壁[Angular](https://angular.io/) 过来的前端喵，rxjs是很熟悉的。如果你不熟悉，你可以多 [了解了解rxjs](http://reactivex.io/rxjs/)
 
 我们这里用rxjs代替addEventListener来管理这个onscroll事件。
 
