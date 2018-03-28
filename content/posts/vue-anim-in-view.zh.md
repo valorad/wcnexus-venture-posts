@@ -26,7 +26,7 @@ isCJKLanguage: true
 ``` bash
 yarn add in-view
 
-#(可选)
+# (可选)
 yarn add rxjs
 ```
 
@@ -63,25 +63,33 @@ yarn add rxjs
 但是当一个模板里面有大量的动画状态时，就会显得非常乱。所以我喜欢把他们集中到一个object里存放。像这样：
 
 ``` typescript
+// App.vue
 
-aniMap = {
-  wikisec: {
-    h1: true,
-    p: true,
-    picture: true
-  },
-  acfsec: [
-    {
-      name: "card1",
-      hidden: true
+export default class App extends Vue {
+
+  aniMap = {
+    wikisec: {
+      h1: true,
+      p: true,
+      picture: true
     },
-    {
-      name: "card2",
-      hidden: true
-    },
-    // ...
-  ]
+    acfsec: [
+      {
+        name: "card1",
+        hidden: true
+      },
+      {
+        name: "card2",
+        hidden: true
+      },
+      // ...
+    ]
+  }
+
+  // ...
 }
+
+
 
 ```
 
@@ -107,18 +115,24 @@ aniMap = {
       <!-- :class来给每个容器底下的每个元素绑定开关 -->
       <!-- 这个class位置很重要，它只能元素的第1个class -->
       <h1 :class="{hideLeft: aniMap.wikisec.h1}">The Volunteer (The Witcher 3 secondary quests)</h1>
-      <p :class="{hideLeft: aniMap.wikisec.h1}">Head out to White Eagle Fort, 
+      <p :class="{hideLeft: aniMap.wikisec.p}">Head out to White Eagle Fort, 
         ...
       </p>
     </div>
-    <picture :class="{hideRight: aniMap.wikisec.h1}">
+    <picture :class="{hideRight: aniMap.wikisec.picture}">
       <img src="./assets/Tw3_the_volunteer.jpg" alt="Tw3_the_volunteer" class="fluid">
     </picture>
   </div>
 </section>
 ```
 
-然后为容器添加样式，一定记得要给容器里的**每一个**元素加`transition`样式。
+然后为容器添加样式，一定记得要给容器里的**每一个**元素加`transition`样式。例如：
+
+``` css
+.animated {
+  transition: all 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+```
 
 这里省略，你可以去看看[本文的repo](https://github.com/wcxaaa/vue-anim-in-view)。
 
@@ -133,7 +147,9 @@ aniMap = {
 这里我的想法是监视浏览器的滚动条，当滚动条滚动时，判断一下元素有没有进入视野。当然要指出哪些元素需要判断。
 
 ``` typescript
+
 // App.vue
+
 onWindowScroll = () => {
   console.log("发现窗口滚动，请注意节流");
   // 注册一下有哪些元素是进入视野才动画出现，这里用到了之前html里的ref
@@ -158,30 +174,41 @@ destroyed() {
 // App.vue
 import inView from 'in-view';
 
-animateWhenSeen(ele: Element){
+export default class App extends Vue {
 
-  if(ele && inView.is(ele)) {
-    // 此时元素可见，那么让它出现
-    // 注意这里是反着的，false表示不隐藏
-    this.switchElementAnimState( this.aniMap, ele.classList[0], false );
-  } else {
-    // 元素已经淡出视野，就恢复初始的状态
-    this.switchElementAnimState( this.aniMap, ele.classList[0], true );
-  }
-  
-};
+  // ...
+
+  animateWhenSeen(ele: Element){
+
+    if(ele && inView.is(ele)) {
+      // 此时元素可见，那么让它出现
+      // 注意这里是反着的，false表示不隐藏
+      this.switchElementAnimState( this.aniMap, ele.classList[0], false );
+    } else {
+      // 元素已经淡出视野，就恢复初始的状态
+      this.switchElementAnimState( this.aniMap, ele.classList[0], true );
+    }
+    
+  };
+}
+
+
 ```
 
 当元素进入视野时，我们要让它出现。`switchElementAnimState`方法传入aniMap映射（就是开关集中object）、元素名称（ref值）以及开还是关。注意由于是控制对应元素的class，这里是反着的，“关”是“不隐藏”，“开”才是“隐藏”。
 
 ``` typescript
+
 // App.vue
+
 switchElementAnimState = (mapObject: any, eleName: string, switchTo: boolean) => {
   // 遍历所有key把对应value全部设置成switchTo的值
   for (let key in mapObject[eleName]) {
     mapObject[eleName][key] = switchTo;
   }
 };
+
+
 ```
 
 完成了。这时候你打开浏览器就可以看到这种效果。
@@ -275,7 +302,27 @@ switchGroupAnimState = (mapArray: any[], stateKey: string, switchTo: boolean, ti
 
 我们每轻轻滚动一次鼠标，onscroll事件就要触发个10多20次，紧接着我们就要在那么十几个px的地方判断10多20次，这是有损性能且毫无意义的，所以我们要做好事件触发的节流工作。
 
-你可以写一个简单的函数，用setTimeout来实现节流，不过那是前端面试题，你可以自己去瞅瞅，我在实际的项目中更多的是用**rxjs**来做节流工作，因为数据流更好管理。
+你可以写一个简单的函数，用`setTimeout`和`clearTimeout`来实现节流，不过那是[前端面试题](https://github.com/poetries/FE-Interview-Questions/blob/master/JavaScript.md)，你可以自己去瞅瞅.
+
+``` javascript
+
+// 简单 Javascript 实现节流举例 改编自 poetries/FE-Interview-Questions
+
+const throttle = (method, context, args) => {
+  clearTimeout(methor.tId);
+  method.tId = setTimeout(() => {
+    method.apply(context, args);
+  }， 100); // 两次调用至少间隔 100ms
+}
+
+// 调用
+window.onscroll = () => {
+  throttle(animateWhenSeen, window, [...]);
+}
+
+```
+
+不过我在实际的项目中更多的是用**rxjs**来做节流工作，因为数据流更好管理。
 
 对于我这种从隔壁 [Angular](https://angular.io/) 过来的前端喵，rxjs是很熟悉的。如果你不熟悉，你可以多 [了解了解rxjs](http://reactivex.io/rxjs/)
 
@@ -287,35 +334,40 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/throttleTime'; // <-- 关键
 import { Subscription } from 'rxjs/Subscription';
 
-windowScrolling = Observable.fromEvent(window, 'scroll'); // 窗口滚动事件交由rxjs管理
-scrollSubscription: Subscription; // class里的成员存储一下这个订阅，便于后面unsubscribe()
+export default class App extends Vue {
+  windowScrolling = Observable.fromEvent(window, 'scroll'); // 窗口滚动事件交由rxjs管理
+  scrollSubscription: Subscription; // class里的成员存储一下这个订阅，便于后面unsubscribe()
 
-// 创建监视函数，等价于之前的 onWindowScroll() 方法
-createScrollMonitor() {
-  let subscription = this.windowScrolling
-    .throttleTime(200) // <-- 这是关键!
-    .subscribe(
-      (next) => {
-        console.log("发现窗口滚动，我们已经节流");
-        this.animateWhenSeen(this.$refs.wikisec as Element);
-        this.animateGroupWhenSeen(this.$refs.acfsec as Element);
-      }
-    );
-  return subscription;
-};
+  // ...
 
-// 在页面刚加载好时注册此行为
-mounted() {
-  // window.addEventListener("scroll", this.onWindowScroll);
-  this.scrollSubscription = this.createScrollMonitor();
+  // 创建监视函数，等价于之前的 onWindowScroll() 方法
+  createScrollMonitor() {
+    let subscription = this.windowScrolling
+      .throttleTime(200) // <-- 这是关键!
+      .subscribe(
+        (next) => {
+          console.log("发现窗口滚动，我们已经节流");
+          this.animateWhenSeen(this.$refs.wikisec as Element);
+          this.animateGroupWhenSeen(this.$refs.acfsec as Element);
+        }
+      );
+    return subscription;
+  };
+
+  // 在页面刚加载好时注册此行为
+  mounted() {
+    // window.addEventListener("scroll", this.onWindowScroll);
+    this.scrollSubscription = this.createScrollMonitor();
+  }
+
+  // 在页面卸载时删除此行为 （比如模板切换、路由切换等）
+  destroyed() {
+    // window.removeEventListener("scroll", this.onWindowScroll);
+    this.scrollSubscription.unsubscribe();
+  }
 }
 
-// 在页面卸载时删除此行为 （比如模板切换、路由切换等）
-destroyed() {
-  // window.removeEventListener("scroll", this.onWindowScroll);
-  this.scrollSubscription.unsubscribe();
 
-}
 
 ```
 
@@ -358,7 +410,7 @@ T：rect.top
 stackOverflow 上也有网友介绍了[如何使用getBoundingClientRect()](https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport)
 
 # 其他
-其实GitHub上有程序猿已经封装了vue版的in-view，不过因为它有bug，而且集成了包括animate.css在内的很多第3方库，有点小臃肿，我在项目中没有采用。
+其实GitHub上有程序猿已经封装了[vue版的in-view](https://github.com/rachmanzz/vue-inview)，不过因为实际使用发现它有bug，而且集成了包括animate.css在内的很多第3方库，有点小臃肿，我在项目中没有采用。
 
 问：为何动画组不能直接用数组存放开关？像`acsec: [true, true, true, ...]`
 
