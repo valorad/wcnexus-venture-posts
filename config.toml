@@ -1,4 +1,4 @@
-baseURL = "https://www.wcnexus.com/venture/"
+baseURL = "https://www.wcnexus.com/"
 # languageCode = "en-us"
 # title = "wcnexus"
 theme = "wcnexus-venture"
