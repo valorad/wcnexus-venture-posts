@@ -10,9 +10,9 @@ isCJKLanguage: true
 我想实现的页面效果是，随着鼠标滑轮滚动，当某个元素（比如div）进入视野时，它动起来（比如淡入），而滑过这个元素时，就恢复原先的状态。我们下一次再看到它时，它再播放动画动起来。
 
 # 效果图
-![Imgur](https://i.imgur.com/17aMf4j.gif)
+![Demo](https://i.imgur.com/17aMf4j.gif)
 
-你可以查看[Github代码仓库](https://github.com/wcxaaa/vue-anim-in-view)看到这个效果的最终实现。
+你可以查看[Github代码仓库](https://github.com/wcxaaa/vue-anim-in-view)看到这个效果的最终代码实现。
 
 # 准备工作
 

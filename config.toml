@@ -27,7 +27,7 @@ weiboAPI = "2886666369"
   
 
   [[params.navs]]
-  link = "https://www.wcnexus.com/venture"
+  link = "https://www.wcnexus.com/venture/zh"
     [params.navs.title]
     en = "Venture"
     zh = "冒险"
