@@ -27,19 +27,19 @@ isCJKLanguage: true
 
 ## 所需软件
 
-- [BAE - Bethesda Archive Extractor](https://www.nexusmods.com/fallout4/mods/78)
+[BAE - Bethesda Archive Extractor](https://www.nexusmods.com/fallout4/mods/78)
 
-- 3dsmax 及其配套的[Nif Plugin](https://www.nexusmods.com/skyrim/mods/84041/)
+3dsmax 及其配套的[Nif Plugin](https://www.nexusmods.com/skyrim/mods/84041/)
 
-- [3dsMax_Skyrim_To_Fallout4_LoosePoseConvertAnimation](https://www.nexusmods.com/fallout4/mods/11070)
+[3dsMax_Skyrim_To_Fallout4_LoosePoseConvertAnimation](https://www.nexusmods.com/fallout4/mods/11070)
 
-- 辐射4版的[BodySlide and Outfit Studio](https://www.nexusmods.com/fallout4/mods/25/)
+辐射4版的[BodySlide and Outfit Studio](https://www.nexusmods.com/fallout4/mods/25/)
 
-- [辐射Material编辑器](https://www.nexusmods.com/fallout4/mods/3635)
+[辐射Material编辑器](https://www.nexusmods.com/fallout4/mods/3635)
 
-- (可选) [NifSkope](https://github.com/niftools/nifskope/releases)
+(可选) [NifSkope](https://github.com/niftools/nifskope/releases)
 
-- (可选) 妹子身形：[Caliente's Beautiful Bodies Enhancer -CBBE-](https://www.nexusmods.com/fallout4/mods/15)
+(可选) 妹子身形：[Caliente's Beautiful Bodies Enhancer -CBBE-](https://www.nexusmods.com/fallout4/mods/15)
 猛男身形：[Super Hero Bodies (Enhanced Vanilla Bodies Conversion)](https://www.nexusmods.com/fallout4/mods/10360)
 
 ## 开始
