@@ -200,6 +200,10 @@ OOOOOOOOh yeah！~ It worked! 看着还不错！挺合身。
 
 [Creation Club](https://creationclub.bethesda.net/en) 欢迎您！【奸笑
 
+## 总结
+
+本教程介绍了通过3dsmax和bodyslide，如何简单地将天际的装备导入到辐射4中。方法很小白，上手很简单，但是有一定的局限性。
+
 ## 参考
 
 [1] Nexus Mods :: Fallout 4. (2018). 3dsMax_Skyrim_To_Fallout4_LoosePoseConvertAnimation. [online] Available at: https://www.nexusmods.com/fallout4/mods/11070 [Accessed 9 Dec. 2018].
