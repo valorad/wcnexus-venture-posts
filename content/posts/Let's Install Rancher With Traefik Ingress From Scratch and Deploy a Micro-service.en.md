@@ -1,4 +1,14 @@
+---
+title: "Let's Install Rancher With Traefik Ingress From Scratch and Deploy a Micro-service"
+date: 2021-04-23T19:24:01-06:00
+draft: false
+featured_image : "https://i.imgur.com/wqlpDhI.png"
+tags: ["docker", "kubernetes", "rancher", "traefik", "micro-service"]
+---
+
+
 # Let's Install Rancher With Traefik Ingress From Scratch and Deploy a Micro-service
+![Cover](https://i.imgur.com/wqlpDhI.png)
 
 Quick terminologies:
 
