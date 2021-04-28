@@ -10,13 +10,13 @@ tags: ["docker", "kubernetes", "rancher", "traefik", "micro-service"]
 # Let's Install Rancher With Traefik Ingress From Scratch and Deploy a Micro-service
 ![Cover](https://i.imgur.com/wqlpDhI.png)
 
+This note will describe how to install Rancher with Traefik ingress on a single-node Kubernetes Cluster, on an Arch Linux VM, on our local environment.
+
 Quick terminologies:
 
 [Rancher][WhyRancher]: A Kubernetes orchestration platform. With Rancher, you can manage multiple Kubernetes clusters easily. There are also tons of well-made applications on the platform ready to deploy at once.
 
 [Traefik Proxy][TraefikWelcome]: A smart edge router that automatically configures reverse proxy to the services in your containers. Traefik supports normal Docker containers or complex platforms like Kubernetes.
-
-We will install Rancher with Traefik ingress on a single-node Kubernetes Cluster, on an Arch Linux VM, on our local environment.
 
 I will also try to provide installation command lines for other Linux distributions as possible.
 
@@ -38,7 +38,19 @@ makepkg -is
 
 ```
 
-3. Install openssh
+3. Install and configure OpenSSH
+
+To install, run:
+
+``` bash
+
+# ==> Archlinux, Manjaro and friends
+sudo pacman -S openssh
+
+# ==> Debian, Ubuntu and friends
+sudo apt install openssh-server
+
+```
 
 Edit `/etc/ssh/sshd_config` and set:
 
@@ -338,11 +350,11 @@ Choose "I'm only going to use the cluster Rancher was installed on", proceed to 
 
 ## Chapter 4: Traefik Ingress
 
-(Chapter 4 and was heavily inspired by [this awesome video][RancherTraefikVideo] by Techno Tim. Kudos to him!)
+(Chapter 4 was heavily inspired by [this awesome video][RancherTraefikVideo] by Techno Tim. Kudos to him!)
 
-Remember your first day of Kubernetes? You probably tried to deploy several pods, and link them to a service. The service was running in NodePort mode, so you used kubeproxy to map the service port to your local machine, then you could access your micro-services. 
+Remember your first day of Kubernetes? You probably tried to deploy several pods, and link them to a service. The service was running in NodePort mode, so you used `kube-proxy` to map the service port to your local machine, then you could access your micro-services. 
 
-But with ingress installed, Kubernetes can then communicate with the outside world directly without using kubeproxy, so we can reach our micro-services deployed on the cluster more easily.
+But with ingress installed, Kubernetes can then communicate with the outside world directly without using `kube-proxy`, so we can reach our micro-services deployed on the cluster more easily.
 
 There are several ingresses we can choose from, like Nginx ingress, or in this chapter, [Traefik][TraefikWelcome] ingress.
 
@@ -391,7 +403,7 @@ Now Go to Rancher UI, switch to `Cluster Manager`, Go to `local` project -> `Def
 
 ![MetalLBInRancherUI](https://i.imgur.com/5v8rgW9.png)
 
-We will test whether load balancing is working after installing Traefik ingress.
+We will test if load balancing is working after installing Traefik ingress.
 
 2. Install Traefik ingress
 
@@ -519,9 +531,9 @@ All done. Visit the service domain and we can see the website is up and running.
 
 Congratulations! Your micro-service is running on Rancher. This has not been an easy task, has it?
 
-In this article we have covered the very basics of creating a single-node Kubernetes cluster, installing Rancher on it, configuring Traefik ingress, and deploying our micro-service in the cluster. We used RKE to help us spin up Kubernetes, so we needed to make sure having installed a supported Docker version. We used Rancher to only manage the cluster that it is installed on. We installed MetalLB, the very important dependency for Traefik ingress to work correctly in our local environment. And lastly, we added access credentials to Rancher and deployed a private service from Github.
+In this article we have covered the very basics of creating a single-node Kubernetes cluster, installing Rancher on it, configuring Traefik ingress, and deploying our micro-service in the cluster. We used RKE to help us quickly spin up Kubernetes, so we needed to make sure having installed a supported Docker version. We used Rancher to only manage the cluster that it is installed on. We installed MetalLB, the very important dependency for Traefik ingress to work correctly in our local environment. And lastly, we added access credentials to Rancher and deployed a private service from Github.
 
-## Notes and Easter eggs
+## Notes and Easter Eggs
 
 ### Troubleshoot
 
@@ -546,6 +558,102 @@ Q: Docker cannot start:
 
 A: Linux kernel is too new. Either downgrade the Linux kernel or install a newer Docker.
 
+### Easter Eggs
+
+1. At first, I tried deploying RKE on Artix Linux: a linux distribution equals Arch Linux minus systemd.
+
+No systemd, no heavy burden. The system runs faster, right? Happy story!
+
+I was installing RKE happily, until I got this:
+
+    INFO[0046] [worker] Successfully started Worker Plane..
+    INFO[0046] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #1
+    INFO[0051] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #2
+    INFO[0056] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #3
+    INFO[0061] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #4
+    INFO[0066] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #5
+    ERRO[0071] Host ivoire-artix-nexus-0 failed to report Ready status with error: host ivoire-artix-nexus-0 not ready
+    INFO[0071] [controlplane] Processing controlplane hosts for upgrade 1 at a time
+    INFO[0071] Processing controlplane host ivoire-artix-nexus-0
+    INFO[0071] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #1
+    INFO[0076] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #2
+    INFO[0081] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #3
+    INFO[0086] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #4
+    INFO[0091] [controlplane] Now checking status of node ivoire-artix-nexus-0, try #5
+    ERRO[0096] Failed to upgrade hosts: ivoire-artix-nexus-0 with error [host ivoire-artix-nexus-0 not ready]
+    FATA[0096] [controlPlane] Failed to upgrade Control Plane: [[host ivoire-artix-nexus-0 not ready]]
+
+
+RKE cannot get spun up because of the lack of systemd. Which means:
+
+      ____                         ___                 _
+     / ___| __ _ _ __ ___   ___   / _ \__   _____ _ __| |
+    | |  _ / _` | '_ ` _ \ / _ \ | | | \ \ / / _ \ '__| |
+    | |_| | (_| | | | | | |  __/ | |_| |\ V /  __/ |  |_|
+     \____|\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|  (_)       (generated by figlet)
+
+2. Then I tried CentOS because it is a system so nice that even has the "cutting edge" `4.18.0-144.el8` kernel with utmost user customization and support.
+
+Well at least I thought it in this way, until:
+
+    mount: unknown filesystem type 'btrfs'
+      ____                         ___                 _
+     / ___| __ _ _ __ ___   ___   / _ \__   _____ _ __| |
+    | |  _ / _` | '_ ` _ \ / _ \ | | | \ \ / / _ \ '__| |
+    | |_| | (_| | | | | | |  __/ | |_| |\ V /  __/ |  |_|
+     \____|\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|  (_)       (generated by figlet)
+
+What?! A `4.18.0` kernel can't even recognize Btrfs? That's the greatest joke for the day, huh? However, it is what it is in CentOS. According to [RedHat Rhel 8 Changelog][Rhel8FileSystemsAndStorage], Btrfs has been removed for unconvincing reasons.
+
+In my personal view, Btrfs is such an elegant file system that solves so many problems in legacy file systems (copy on write), bringing so much flexibility in system management (sub-volumes and snapshots). With all due respect, a modern Linux system that drops Btrfs support is complete unusable rubbish that reverted to the 1980s! Redhat says alright if you want your Btrfs, go use Fedora, but if you want stability, go use trash. That's not fair. What if, in my case, a user needs 90% stability but also needs 10% customization? A total denial only diverts these users to other distributions. Not CentOS, not RHEL, not Fedora!
+
+Okay in fact the game is not over yet. Forget about Btrfs and we can continue with ext4.
+
+I deliberately disabled `firewalld`, then installed Docker, downloaded the RKE binary, created the RKE config, and spin it up!
+
+Then...
+
+    INFO[0019] [remove/rke-log-linker] Successfully removed container on host [vm-salisto-centOS-nexus-0]
+    INFO[0019] [etcd] Successfully started etcd plane.. Checking etcd cluster health
+    WARN[0110] [etcd] host [vm-salisto-centOS-nexus-0] failed to check etcd health: failed to get /health for host [vm-salisto-centOS-nexus-0]: Get "https://vm-salisto-centOS-nexus-0:2379/health": Unable to access the service on vm-salisto-centOS-nexus-0:2379. The service might be still starting up. Error: ssh: rejected: connect failed (Connection refused)
+    FATA[0110] [etcd] Failed to bring up Etcd Plane: etcd cluster is unhealthy: hosts [vm-salisto-centOS-nexus-0] failed to report healthy. Check etcd container logs on each host for more information
+      ____                         ___                 _
+     / ___| __ _ _ __ ___   ___   / _ \__   _____ _ __| |
+    | |  _ / _` | '_ ` _ \ / _ \ | | | \ \ / / _ \ '__| |
+    | |_| | (_| | | | | | |  __/ | |_| |\ V /  __/ |  |_|
+     \____|\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|  (_)       (generated by figlet)
+
+I am sure the firewall has been disabled completely, at least from the looks of `firewalld`.
+
+No matter how I try disabling `firewalld`, it just keeps rejecting ssh to the etcd cluster.
+
+Maybe try adding 20+ lines of firewall rules one by one will eventually work. Maybe Fedora won't have such ridiculous firewall issues. But anyway I completely lost my patience with the CentOS family.
+
+3. Back to Arch Linux
+
+At first, I was following the RKE installation guide, which specifies only 3 old docker versions: 18.09.2, 18.06.2, and 17.03.2.
+
+I thought these 3 are the only versions supported by RKE, so I tried to install 18.09.2, which is an old version that only exists in [ArchLinux Archive][ArchLinuxArchive].
+
+``` bash
+sudo pacman -U https://archive.archlinux.org/packages/d/docker/docker-1%3A18.09.2-1-x86_64.pkg.tar.xz
+```
+
+Then bang! Docker won't even start, as shown in Troubleshoot section.
+
+      ____                         ___                 _
+     / ___| __ _ _ __ ___   ___   / _ \__   _____ _ __| |
+    | |  _ / _` | '_ ` _ \ / _ \ | | | \ \ / / _ \ '__| |
+    | |_| | (_| | | | | | |  __/ | |_| |\ V /  __/ |  |_|
+     \____|\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|  (_)       (generated by figlet)
+
+Later I reviewed the [RKE Requirements][RKEDockerReq] page and figured out the latest version of Docker is supported.
+
+So after installing the latest Docker, there was no more issue.
+
+Yay! It finally worked!
+
+(P.s. I tried Debian, it also works.)
 
 ## Further readings
 
@@ -576,3 +684,5 @@ Traefik Kubernetes Ingress Documentation: https://doc.traefik.io/traefik/provide
 [rancherRequiredPorts]: https://rancher.com/docs/rke/latest/en/os/#ports
 [RancherTraefikVideo]: https://youtu.be/pAM2GBCDGTo
 [MetalLBConcepts]: https://metallb.universe.tf/concepts/
+[Rhel8FileSystemsAndStorage]: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/considerations_in_adopting_rhel_8/file-systems-and-storage_considerations-in-adopting-rhel-8
+[ArchLinuxArchive]: https://archive.archlinux.org/
