@@ -65,7 +65,7 @@ AllowTcpForwarding yes
 ``` bash
 
 ssh-keygen -t ed25519
-cat ~/.ssh/id_ed25519.pub > authorized_keys
+cat ~/.ssh/id_ed25519.pub > ~/.ssh/authorized_keys
 chmod 700 ~/.ssh
 chmod 400 ~/.ssh/authorized_keys
 chmod 400 ~/.ssh/id_ed25519
